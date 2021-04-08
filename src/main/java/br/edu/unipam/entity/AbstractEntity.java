@@ -5,24 +5,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 @MappedSuperclass
 public abstract class AbstractEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
-    
-    protected Date DataCriacao;
-    
-    protected Date DataAlteracao;
-    
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Date getDataCriacao() {
         return DataCriacao;
@@ -40,5 +31,19 @@ public abstract class AbstractEntity {
         this.DataAlteracao = DataAlteracao;
     }
     
+    @Temporal(TemporalType.TIMESTAMP)
+    @NotNull
+    protected Date DataCriacao;
     
+    @Temporal(TemporalType.TIMESTAMP)
+    protected Date DataAlteracao;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
 }

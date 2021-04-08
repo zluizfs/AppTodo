@@ -1,10 +1,13 @@
 package br.edu.unipam.service;
 
 import br.edu.unipam.entity.Usuario;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
+@Transactional
 public class UsuarioService {
     
     @PersistenceContext(name = "pu_todo")
@@ -12,7 +15,9 @@ public class UsuarioService {
     
     // Inserir
     public Usuario salvarUsuario(Usuario usuario) {
+        usuario.setDataCriacao(new Date());
         entityManager.persist(usuario);
+        System.out.println(usuario);
         return usuario;
     }
        
@@ -27,6 +32,7 @@ public class UsuarioService {
         Usuario userBd = localizarPorId(usuario.getId());
         
         if(userBd != null) {
+            usuario.setDataAlteracao(new Date());
             entityManager.merge(usuario);
             return usuario;
         }
@@ -44,7 +50,6 @@ public class UsuarioService {
     
     // Localizar todos os usuários
     public List<Usuario> listarTodos (){
-        // return entityManager.createQuery("select u from Usuario u order by nome", Usuario.class).getResultList();
         return entityManager.createNamedQuery(Usuario.GET_ALL_USERS, Usuario.class).getResultList();
     }
 }
