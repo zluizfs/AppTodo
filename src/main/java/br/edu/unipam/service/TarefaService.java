@@ -58,6 +58,7 @@ public class TarefaService {
        
        tarefa.setUsuario(userBd);
        tarefa.setDataAlteracao(new Date());
+       tarefa.setDataCriacao(tarefaBd.getDataCriacao());
        entityManager.merge(tarefa);
        return tarefa;
     }
@@ -80,6 +81,7 @@ public class TarefaService {
     // Localizar tarefas por usuário
     public List<Tarefa> listarPorUsuario(Long id){
         Usuario user = usuarioService.localizarPorId(id);
+        
         if(user == null){
             return null;
         }

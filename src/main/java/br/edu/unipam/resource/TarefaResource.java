@@ -33,29 +33,30 @@ public class TarefaResource {
     }
     
     @GET
-    @Path("listByUser")
-    public Response ListarTarefaUsuario(long id) {
+    @Path("listByUser/{id}")
+    public Response ListarTarefaUsuario(@PathParam("id") Long id) {
         List<Tarefa> tarefas = tarefaService.listarPorUsuario(id);
         return Response.ok(tarefas).build();
     }
     
     @POST
     @Path("new/{id}")
-    public Response salvarTarefa(Tarefa tarefa, @PathParam("id") long idUser){
-        Tarefa tarefaSalva = tarefaService.salvar(tarefa, idUser);
-        return Response.ok(tarefaSalva).build();
-    }
+    public Response salvarTarefa(Tarefa tarefa, @PathParam("id") Long idUser)
+     {
+         Tarefa novaTarefa  = tarefaService.salvar(tarefa, idUser);
+         return Response.ok(novaTarefa).build();
+     }
     
     @PUT
     @Path("update/{id}")
-    public Response atualizarTarefa(Tarefa tarefa, @PathParam("id") long idUser){
+    public Response atualizarTarefa(Tarefa tarefa, @PathParam("id") Long idUser){
         Tarefa tarefaSalva = tarefaService.editar(tarefa, idUser);
         return Response.ok(tarefaSalva).build();
     }
     
     @DELETE
     @Path("delete/{id}")
-    public Response excluirTarefa(@PathParam("id") long idTarefa){
+    public Response excluirTarefa(@PathParam("id") Long idTarefa){
         String retorno = tarefaService.remover(idTarefa);
         if(retorno == null)
         {
