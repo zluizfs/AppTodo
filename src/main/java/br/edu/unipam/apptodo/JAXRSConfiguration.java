@@ -3,11 +3,7 @@ package br.edu.unipam.apptodo;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
-/**
- * Configures JAX-RS for the application.
- * @author Juneau
- */
-@ApplicationPath("resources")
+@ApplicationPath("api/v1") //dominio/contexto/api/v1/.... 
 public class JAXRSConfiguration extends Application {
     
 }
